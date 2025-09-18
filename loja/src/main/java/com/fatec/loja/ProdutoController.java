@@ -38,7 +38,7 @@ public class ProdutoController {
     @DeleteMapping("/api/produto/{codigo}/cliente/{id}")
     public void remover(@PathVariable int codigo, @PathVariable int id){
         var cliente = cd.findById(id);
-        if (cliente.isPresent() && cliente.get().getPermissao() > 1){
+        if (cliente.isPresent() && cliente.get().getPermissao() >= 1){
             bd.deleteById(codigo);
             System.out.println("Produto removido com sucesso!");
         }

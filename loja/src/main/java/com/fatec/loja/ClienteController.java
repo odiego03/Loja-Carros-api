@@ -25,7 +25,6 @@ public class ClienteController {
 
     @PostMapping("/api/cliente")
     public void gravar(@RequestBody Cliente obj){
-        obj.setSenha(util.md5(obj.getSenha()));
         bd.save(obj);
         String email = "<b>Email de confirmação de cadastro</b><br><br>" +
                 "Seja bem-vindo, "+ obj.getNome() + "! Clique no link abaixo para confirmar seu cadastro:<br>" +
@@ -36,9 +35,26 @@ public class ClienteController {
 
     @PutMapping("/api/cliente")
     public void alterar(@RequestBody Cliente obj){
-        obj.setSenha(util.md5(obj.getSenha()));
         if(bd.existsById(obj.getCodigo())) bd.save(obj);
         System.out.println("Cliente alterado com sucesso!");
+    }
+
+    @PatchMapping("/api/cliente/redefinir-senha")
+    public String redefinirSenha(@RequestBody Cliente obj) {
+        Optional<Cliente> cliente = bd.findByEmail(obj.getEmail());
+        if(cliente.isEmpty()) {
+            return "Cliente não encontrado";
+        }
+        Cliente c = cliente.get();
+        c.setSenha(obj.getSenha()); 
+        bd.save(c);
+        return "Senha atualizada com sucesso!";
+    }
+    
+
+    @GetMapping("/api/clientes")
+    public List<Cliente> listarTodos() {
+        return bd.findAll();
     }
 
     @GetMapping("/api/cliente/{codigo}")
@@ -49,7 +65,7 @@ public class ClienteController {
     @DeleteMapping("/api/cliente/{codigo}/removido-por/{idAdmin}")
     public void remover(@PathVariable int codigo,@PathVariable int idAdmin){
         Optional<Cliente> admin = bd.findById(idAdmin);
-        if (admin.isPresent() && admin.get().getPermissao() > 1) {
+        if (admin.isPresent() && admin.get().getPermissao() >= 1) {
             bd.deleteById(codigo);
             System.out.println("Cliente removido com sucesso!");
         }

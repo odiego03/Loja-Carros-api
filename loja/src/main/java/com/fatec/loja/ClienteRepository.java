@@ -19,5 +19,5 @@ JpaRepository<Cliente, Integer>{
      nativeQuery=true)
      public List<Cliente> listaInativos();
 
-  
+    public Optional<Cliente> findByEmail(String email);  
 }

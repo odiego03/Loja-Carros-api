@@ -3,13 +3,16 @@ package com.fatec.loja;
 
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class Cliente {
     @Id
-    
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
+
     private String nome;
     private String email;
     private String senha;
@@ -21,9 +24,6 @@ public class Cliente {
     private String complemento;
     private boolean ativo = false; 
     private int permissao = 0;
-
-   
-
 
     public int getCodigo() {
         return codigo;

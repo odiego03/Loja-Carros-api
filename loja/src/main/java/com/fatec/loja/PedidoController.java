@@ -13,15 +13,22 @@ public class PedidoController {
     @Autowired
     LojaService util;
 
-    @PostMapping("/api/pedido")
-    public void gravar(@RequestBody Pedido pedido) {
-        double total = pedido.getItens().stream().mapToDouble(Produto::getValor).sum();
-        pedido.setTotal(total);
-        bd.save(pedido);
+    @Autowired
+    ProdutoRepository pd;
 
-        String email = "<b>Confirmação de Pedido</b><br>Pedido realizado com sucesso!<br>Total: R$ " + total;
-        util.enviaEmailHTML(pedido.getCliente().getEmail(), "Pedido confirmado", email);
-        System.out.println("Pedido gravado com sucesso!");
+    @PostMapping("/api/pedido")
+    public void gravar(@RequestBody Pedido pedido){
+
+    List<Produto> itensAtualizados = pedido.getItens().stream().map(i -> pd.findById(i.getCodigo()).orElse(null)).filter(i -> i != null).toList();
+    pedido.setItens(itensAtualizados);
+    double total = itensAtualizados.stream().mapToDouble(p -> p.getPromo() > 0 ? p.getPromo() : p.getValor()).sum();
+
+    pedido.setTotal(total);
+    bd.save(pedido);
+
+    String email = "<b>Confirmação de Pedido</b><br>Pedido realizado com sucesso!<br>Total: R$ " + total;
+    util.enviaEmailHTML(pedido.getCliente().getEmail(), "Pedido confirmado", email);
+    System.out.println("Pedido gravado com sucesso! Total: " + total);
     }
 
     @PutMapping("/api/pedido")

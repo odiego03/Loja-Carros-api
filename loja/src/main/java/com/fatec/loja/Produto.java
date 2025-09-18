@@ -12,7 +12,7 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Produto {
-      @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
 
