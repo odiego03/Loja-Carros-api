@@ -1,0 +1,42 @@
+
+
+{
+  "modelo": "Civic",
+  "marca": "Honda",
+  "descritivo": "Honda Civic 2020, automático, 2.0 flex",
+  "valor": 95000.00,
+  "promo": 90000.00,
+  "destaque": true,
+  "anoFabricacao": "2020-01-01",
+  "kmRodados": 30000,
+  "placa": "ABC1D23"
+}
+
+{
+  "nome": "João Silva",
+  "email": "ds944729982@gmail.com",
+  "senha": "123456",
+  "documento": "123.456.789-00",
+  "telefone": "11999999999",
+  "logradouro": "Rua das Flores, 123",
+  "cidade": "São Paulo",
+  "cep": "01000-000",
+  "complemento": "Apto 12",
+  "ativo": false,
+  "permissao": 1
+}
+
+{
+  "cliente": {
+    "codigo": 1
+  },
+  "itens": [
+    {
+      "codigo": 1
+    },
+ {
+      "codigo": 2
+    }
+
+]
+}
