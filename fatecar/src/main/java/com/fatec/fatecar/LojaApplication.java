@@ -1,4 +1,4 @@
- package com.fatec.loja;
+ package com.fatec.fatecar;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

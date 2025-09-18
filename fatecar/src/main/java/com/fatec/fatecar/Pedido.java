@@ -1,4 +1,4 @@
-package com.fatec.loja;
+package com.fatec.fatecar;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;

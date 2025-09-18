@@ -1,4 +1,4 @@
-package com.fatec.loja;
+package com.fatec.fatecar;
 
 import java.sql.Date;
 import java.util.ArrayList;
